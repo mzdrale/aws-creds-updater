@@ -1,4 +1,4 @@
-credentials
-config.yml
 .DS_Store
-
+aws-creds-updater
+config.yml
+credentials
