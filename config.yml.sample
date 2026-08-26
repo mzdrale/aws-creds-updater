@@ -1,0 +1,12 @@
+profiles:
+  - name: org-dev
+    aliases:
+      - 1111111111_Dev-Admin
+  - name: org-staging
+    aliases:
+      - 2222222222_NC2-FA-Admin
+  - name: org-prod
+    aliases:
+      - 3333333333_NC2-FA-Admin
+
+aws_secrets_file: ~/.aws/credentials

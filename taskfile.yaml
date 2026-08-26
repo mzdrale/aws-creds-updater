@@ -1,0 +1,55 @@
+version: "3"
+
+env:
+  BIN_NAME: aws-creds-updater
+  VERSION:
+    sh: cat ./VERSION 2>/dev/null || echo "0.0.0"
+  REVISION:
+    sh: test -z ${REVISION} && (git rev-parse --short HEAD 2>/dev/null || echo "unknown") || echo ${REVISION}
+  GOOS: "{{ default OS .GOOS }}"
+  GOARCH: "{{ default ARCH .GOARCH }}"
+  GOLDFLAGS: -s -w -X main.binName={{ .BIN_NAME }} -X main.version={{ .VERSION }}-{{ .REVISION }}
+  GOVERSION: 1.26
+
+tasks:
+  default:
+    - task: build
+
+  build:
+    desc: Build go binary ({{ .GOOS }}/{{ .GOARCH }})
+    aliases: [b]
+    cmds:
+      # - go get -d
+      - CGO_ENABLED=0 go build -ldflags="{{ .GOLDFLAGS }}" -o {{ .BIN_NAME }} cmd/aws-creds-updater/main.go
+
+  update:
+    desc: Update go packages and dependencies to their latest versions
+    aliases: [u]
+    cmds:
+      - go get -u ./...
+      - go mod tidy
+
+  install:
+    desc: Install go binary
+    aliases: [i]
+    cmds:
+      - go install -ldflags="{{ .GOLDFLAGS }}" ./cmd/aws-creds-updater
+      - mv {{ .BIN_NAME }} ~/go/bin/{{ .BIN_NAME }}
+
+  run:
+    desc: Compile and run go code
+    aliases: [r]
+    silent: true
+    cmds:
+      - go run -ldflags="{{ .GOLDFLAGS }}" ./cmd/aws-creds-updater
+
+  test:
+    desc: Run tests
+    aliases: [t]
+    cmds:
+      - go test ./cmd/...
+
+  clean:
+    desc: Remove build artifacts
+    cmds:
+      - rm -f {{ .BIN_NAME }}
