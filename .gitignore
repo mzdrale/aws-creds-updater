@@ -1,4 +1,5 @@
 .DS_Store
 aws-creds-updater
+aws-creds-updater-*
 config.yml
 credentials

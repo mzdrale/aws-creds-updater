@@ -44,7 +44,14 @@ go install ./cmd/aws-creds-updater
 
 This project includes a `Makefile` for build automation:
 
-- `make build` or `make` - Build the binary
+- `make build` or `make` - Build the binary for the current platform
+- `make build:all` - Build for macOS and Linux (amd64 and arm64)
+- `make build:macos` - Build for macOS (Intel amd64 and ARM64)
+- `make build:macos:amd64` - Build for macOS Intel (amd64)
+- `make build:macos:arm64` - Build for macOS ARM64
+- `make build:linux` - Build for Linux (amd64 and ARM64)
+- `make build:linux:amd64` - Build for Linux AMD64
+- `make build:linux:arm64` - Build for Linux ARM64
 - `make run` - Compile and run the code
 - `make test` - Run tests
 - `make install` - Build and install to `~/go/bin/`
@@ -59,7 +66,8 @@ This project includes a `Makefile` for build automation:
 - `make i` - Alias for `install`
 - `make u` - Alias for `update`
 
-**Cross-compilation:**
+Cross-compiled binaries are named `aws-creds-updater-<version>-<os>-<arch>` (for example `aws-creds-updater-0.0.3-linux-amd64`). You can also still override the default `build` target:
+
 ```bash
 make build GOOS=linux GOARCH=amd64
 ```
@@ -68,7 +76,14 @@ make build GOOS=linux GOARCH=amd64
 
 Alternatively, this project supports [Task](https://taskfile.dev/) for build automation:
 
-- `task build` - Build the binary
+- `task build` - Build the binary for the current platform
+- `task build:all` - Build for macOS and Linux (amd64 and arm64)
+- `task build:macos` - Build for macOS (Intel amd64 and ARM64)
+- `task build:macos:amd64` - Build for macOS Intel (amd64)
+- `task build:macos:arm64` - Build for macOS ARM64
+- `task build:linux` - Build for Linux (amd64 and ARM64)
+- `task build:linux:amd64` - Build for Linux AMD64
+- `task build:linux:arm64` - Build for Linux ARM64
 - `task run` - Compile and run the code
 - `task test` - Run tests
 - `task install` - Install to `~/go/bin/`
