@@ -5,7 +5,7 @@ GOARCH ?= $(shell go env GOARCH)
 VERSION := $(shell cat ./VERSION 2>/dev/null || echo "0.0.0")
 REVISION ?= $(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")
 GOLDFLAGS := -s -w -X main.binName=$(BIN_NAME) -X main.version=${VERSION}-$(REVISION)
-GOVERSION := 1.26
+GOVERSION := 1.27
 SRC := cmd/aws-creds-updater/main.go
 
 .PHONY: default
